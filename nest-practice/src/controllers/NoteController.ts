@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, Res } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Param, Req, Res } from '@nestjs/common';
 import { NoteService } from '../services/NotesService';
 import { Request } from 'express';
 
@@ -39,4 +39,27 @@ export class NoteController {
   findOne(@Param() params, @Req() request: Request) : string {
     return params.id;
   }
+  /**
+   * 
+   * @param id
+   * @param request all request object
+   * @returns message id
+   * Example path url : 'notes/update'
+   */
+  @Put(':id')
+  update(@Param('id') id: string, @Req() request: Request) {
+    return id;
+  }
+  /**
+   * 
+   * @param id
+   * @param request all request object
+   * @returns message id
+   * Example path url : 'notes/delete'
+   */
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return id;
+  }
+
 }
