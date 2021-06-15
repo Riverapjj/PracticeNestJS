@@ -33,6 +33,7 @@ export class NoteController {
    * @param params id
    * @param request all request object
    * @returns message id
+   * Example path url : 'notes/1'
    */
   @Get(':id')
   findOne(@Param() params, @Req() request: Request) : string {
