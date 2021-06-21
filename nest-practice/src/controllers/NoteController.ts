@@ -2,6 +2,7 @@ import { Controller, Get, Put, Delete, Param, Req, Res, Post, Body } from '@nest
 import { NoteService } from '../services/NotesService';
 import { Request } from 'express';
 import { BaseNoteDto } from '../notes/dto/base.dto'
+import { CreateTodoDto } from 'src/notes/dto/create.dto';
 /**
  * Parent path of the controller
  * Example -> /notes
@@ -28,11 +29,10 @@ export class NoteController {
     return this.service.findAll();
   }
   
-  // @Post('/')
-  // async addNote(@Body() noteDTO:NoteDTO){
-  //   const recipe = await this.service.addRecipe(noteDTO);
-  //   return recipe;
-  // }
+  @Post()
+  async addNote(@Body() noteDto: CreateTodoDto){
+    return await this.service.createNote(noteDto);
+  }
   
   /**
    * 
