@@ -3,6 +3,7 @@ import { NoteService } from '../services/NotesService';
 import { Request } from 'express';
 import { BaseNoteDto } from '../notes/dto/base.dto'
 import { CreateTodoDto } from 'src/notes/dto/create.dto';
+import { UpdateTodoDto } from 'src/notes/dto/update.dto';
 /**
  * Parent path of the controller
  * Example -> /notes
@@ -28,7 +29,12 @@ export class NoteController {
   all(@Req() request: Request) {
     return this.service.findAll();
   }
-  
+
+  /**
+   * path : '/notes'
+   * @param request save note
+   * @returns message
+   */
   @Post()
   async addNote(@Body() noteDto: CreateTodoDto){
     return await this.service.createNote(noteDto);
@@ -37,35 +43,35 @@ export class NoteController {
   /**
    * 
    * @param params id
-   * @param request all request object
+   * @param request get single note
    * @returns message id
    * Example path url : 'notes/1'
    */
-  // @Get(':id')
-  // findOne(@Param() params, @Req() request: Request) : string {
-  //   return params.id;
-  // }
+  @Get(':id')
+  findOne(@Param() params, @Req() request: Request) : string {
+    return params.id;
+  }
   /**
    * 
    * @param id
-   * @param request all request object
+   * @param request update note
    * @returns message id
    * Example path url : 'notes/update/:id'
    */
-  // @Put(':id')
-  // update(@Param('id') id: string, @Req() request: Request) {
-  //   return id;
-  // }
+  @Put(':id')
+  update(@Param() params, @Body() note: UpdateTodoDto) {
+    return this.service.updateNote(params.id,note);
+  }
   /**
    * 
    * @param id
-   * @param request all request object
+   * @param request delete note
    * @returns message id
    * Example path url : 'notes/delete'
    */
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return id;
-  // }
+  @Delete(':id')
+  remove(@Param() params) {
+    return this.service.delete(params.id);
+  }
 
 }

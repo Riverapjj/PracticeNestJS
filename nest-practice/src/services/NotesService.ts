@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Todo, TodoDocument } from '../models/Note';
 import { CreateTodoDto } from '../notes/dto/create.dto';
+import { UpdateTodoDto } from 'src/notes/dto/update.dto';
+
 @Injectable()
 export class NoteService {
   constructor(@InjectModel(Todo.name) private model: Model<TodoDocument>) {}
@@ -22,6 +24,13 @@ export class NoteService {
       ...createTodoDto,
       createdAt: new Date(),
     }).save()
+  }
+
+  async updateNote(id: string,updateTodo: UpdateTodoDto){
+    return await this.model.updateOne({_id: id},{$set:updateTodo});
+  }
+  async delete(id: string){
+    return await this.model.deleteOne({_id: id});
   }
   
 }
