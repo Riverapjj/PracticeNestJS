@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Delete, Param, Req, Res, Post, Body } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Param, Req, Res, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
 import { NoteService } from '../services/NotesService';
 import { Request } from 'express';
 import { BaseNoteDto } from '../notes/dto/base.dto'
@@ -36,6 +36,7 @@ export class NoteController {
    * @returns message
    */
   @Post()
+  @UsePipes(new ValidationPipe())
   async addNote(@Body() noteDto: CreateTodoDto){
     return await this.service.createNote(noteDto);
   }
